@@ -2,16 +2,51 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Header } from './components/Header'
 import { Body } from './components/Body'
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom' // createBrowserRouter use to create the router paths
+//RouterProvider is used to configure the Router
+import AboutUs from './components/AboutUs'
+import Contact from './components/Contact'
+import Error from './components/Error'
+import RestaurantMenu from './components/RestaurantMenu'
 
 
 const AppLayout = () => {
     return (
         <div className='app'>
             <Header />
-            <Body />
+            {/** the children which is to be rendered is comes under Outlet ex
+             *  is u pass /about then component AboutUs rendered insted of Outlet
+             */}
+            <Outlet />
         </div>
     )
 }
+const appRouter = createBrowserRouter([
+    {
+        path: "/",
+        element: <AppLayout />,
+        children: [
+            {
+                path: "/",
+                element: <Body />
+            },
+            {
+                path: "/about",
+                element: <AboutUs />
+            },
+            {
+                path: "/contact",
+                element: <Contact />
+            },
+            {
+                path: "/restaurants/:resId",    // this :resId is a dynamic id no the basic of which we navigate
+                element: <RestaurantMenu />
+            },
+        ],
+        errorElement: <Error />
+    },
+
+])
 const root = ReactDOM.createRoot(document.getElementById("root"))
-root.render(<AppLayout />)  // this will convert object(heading/parents) to h1 tag and render it
+root.render(<RouterProvider router={appRouter} />)  // this will convert object(heading/parents) to h1 tag and render it
 
