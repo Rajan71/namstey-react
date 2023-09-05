@@ -33,11 +33,14 @@ export const Body = () => {
 
     return (
         <div className='body'>
-            <div className='filter'>
-                <div className='search'>
-                    <input type="text" value={serach}
+            <div className='filter flex items-center'>
+                <div className='m-4 p-4'>
+                    <input
+                        className="border border-solid border-black"
+                        type="text" value={serach}
                         onChange={(e) => setSearch(e.target.value)} />
                     <button
+                        className="px-4 py-2 bg-green-300 m-4 rounded-lg"
                         onClick={() => {
                         }
                         }>
@@ -45,6 +48,7 @@ export const Body = () => {
                     </button>
                 </div>
                 <button
+                    className="px-4 bg-gray-100 h-10 rounded-lg"
                     onClick={() => {
                         let filterList = listOfRes.filter(res => res?.avgRating > 4)
                         setListOfRes(filterList)
@@ -53,7 +57,7 @@ export const Body = () => {
                     Top rated restaurants
                 </button>
             </div>
-            <div className='res-container'>
+            <div className='flex flex-wrap'>
                 {/**on Click of res card we are routing to card detail via Link method with dynamic id */}
                 {listOfRes?.map((res) =>
                     <Link key={res?.id} to={'/restaurants/' + res?.info?.id}> <RestaurantCard data={res} /></Link>)}

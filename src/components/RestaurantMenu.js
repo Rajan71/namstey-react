@@ -26,13 +26,18 @@ const RestaurantMenu = () => {
     //         setMenuData(json?.data?.cards)
     //     }
     return (
-        <div className='menu'>
-            <h1>{menuData[0]?.card?.card?.info?.name}</h1>
-            <h3>Menu</h3>
+        <div className=''>
+            <h1 className='ml-40 font-bold text-xl mb-10'>{menuData[0]?.card?.card?.info?.name}</h1>
+            <h3 className='ml-40 mb-5 text-red-800'>Menu Items</h3>
             {menuData[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards?.map((i) =>
-                <ul key={i?.card?.info?.id}>
-                    <li>{i?.card?.info?.name}</li>
-                </ul>
+                <div key={i?.card?.info?.id} className='border-t-2 border-solid border-gray-200 h-20 ml-40 p-10 items-center w-[500px] flex justify-between'>
+                    <ul>
+                        <li>{i?.card?.info?.ratings?.aggregatedRating?.rating} {'★'}</li>
+                        <li>{i?.card?.info?.name}</li>
+                        <li>{(i?.card?.info?.defaultPrice == NaN ? i?.card?.info?.defaultPrice : i?.card?.info?.price) / 100}</li>
+                    </ul>
+                    <button className='px-4 py-2 bg-blue-300 h-10 rounded-lg' >Add</button>
+                </div>
             )}
 
         </div>
