@@ -1,4 +1,4 @@
-import { RestaurantCard } from "./RestaurantCard"
+import { RestaurantCard, withPromotedLabel } from "./RestaurantCard"
 import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
 import useOnlineStatus from "../utils/useOnlineStatus"
@@ -30,7 +30,7 @@ export const Body = () => {
     if (onlineStatus == false) {
         return <h1>No internet connection!</h1>
     }
-
+    const RestaurantCardPromoted = withPromotedLabel(RestaurantCard)
     return (
         <div className='body'>
             <div className='filter flex items-center'>
@@ -60,7 +60,10 @@ export const Body = () => {
             <div className='flex flex-wrap'>
                 {/**on Click of res card we are routing to card detail via Link method with dynamic id */}
                 {listOfRes?.map((res) =>
-                    <Link key={res?.id} to={'/restaurants/' + res?.info?.id}> <RestaurantCard data={res} /></Link>)}
+                    <Link key={res?.id} to={'/restaurants/' + res?.info?.id}>
+                        {res?.info?.isOpen ? <RestaurantCardPromoted data={res} /> : <RestaurantCard data={res} />}
+
+                    </Link>)}
 
             </div>
         </div>

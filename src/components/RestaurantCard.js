@@ -12,3 +12,15 @@ export const RestaurantCard = (props) => {
         </div>
     )
 }
+
+export const withPromotedLabel = (RestaurantCard) => {
+    return (props) => {   //component is a function thats why returning a function
+        return (
+            <div>
+                <label className="absolute bg-black text-white p-2 ml-2 rounded-lg">Promoted</label>
+                <RestaurantCard {...props} />
+            </div>
+        )
+
+    }
+}

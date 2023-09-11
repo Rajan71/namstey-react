@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react'
+import React, { lazy, Suspense, useState, useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
 import { Header } from './components/Header'
 import { Body } from './components/Body'
@@ -8,17 +8,28 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom' /
 import Contact from './components/Contact'
 import Error from './components/Error'
 import RestaurantMenu from './components/RestaurantMenu'
+import UserContext from './utils/UserContext'
 
 
 const AppLayout = () => {
+    const [userName, setUserName] = useState('')
+    useEffect(() => {
+        let data = {
+            name: 'Rajan'
+        }
+        setUserName(data?.name)
+
+    }, [])
     return (
-        <div className='app'>
-            <Header />
-            {/** the children which is to be rendered is comes under Outlet ex
+        <UserContext.Provider value={{ loggedInUser: userName }}>
+            <div className='app'>
+                <Header />
+                {/** the children which is to be rendered is comes under Outlet ex
              *  is u pass /about then component AboutUs rendered insted of Outlet
              */}
-            <Outlet />
-        </div>
+                <Outlet />
+            </div>
+        </UserContext.Provider>
     )
 }
 const AboutUs = lazy(() => import('./components/AboutUs'))
